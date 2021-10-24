@@ -47,7 +47,7 @@ class Scene(scene.Scene):
         self.spell_rects = []
         for i, s in enumerate(self.spells):
             self.spell_rects.append([
-                pygame.font.Font(resources.font_path("prstart"), 6).render(s[0] + " (" + str(s[1]) + ")", False,(0, 0, 0)),
+                pygame.font.Font(resources.font_path("tiny"), 6).render(s[0] + " (" + str(s[1]) + ")", False,(0, 0, 0)),
                 pygame.Rect(self.mr.x + 10, self.mr.y - self.spell_height*(i+1) - 1, self.spell_width, self.spell_height)
             ])
 
