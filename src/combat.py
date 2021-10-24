@@ -10,7 +10,7 @@ from util.consts import FRAME
 import util.scene as scene
 import util.entity as entity
 
-from systems.draw import DrawSystem
+from systems.draw import Draw
 
 import components.player
 import components.position
@@ -22,7 +22,7 @@ import components.health
 
 class Scene(scene.Scene):
     def __init__(self, screen, stack):
-        super().__init__(screen, stack, post_systems=[DrawSystem([ComponentType.Position, ComponentType.Sprite])])
+        super().__init__(screen, stack, post_systems=[Draw(screen)])
         
         self.player = entity.Entity(self, set([
             components.player.Player(),
@@ -34,7 +34,7 @@ class Scene(scene.Scene):
         self.enemy = entity.Entity(self, set([
             components.enemy.Enemy(),
             components.position.Position(130, 32),
-            components.sprite.Sprite('ratking', 16, 16, animations=[('laugh', 0, 1, 0, 10 * FRAME)], animation='laugh'),
+            components.sprite.Sprite('ratking', 48, 64, animations=[('laugh', 0, 1, 0, 10 * FRAME)], animation='laugh'),
             components.stats.Stats(dice.roll(1, 3), dice.roll(1, 3), dice.roll(1,3)),
             components.health.Health()]))
 

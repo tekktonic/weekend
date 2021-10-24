@@ -8,16 +8,17 @@ class System(object):
 
 class SystemManager(object):
     def __init__(self, scene, systems=[], post_systems=[]):
+        print(post_systems)
         self.scene = scene
         self.systems = systems
-        self.post_systems = systems
+        self.post_systems = post_systems
 
     def update(self, events, dt):
         for system in self.systems:
             for entity in self.scene.entities:
-                if system.requires.issubset(entity.components_used):
-                    system.update(scene, entity, dt)
+                if entity != None and system.required_components.issubset(entity.used_components):
+                    system.update(events, self.scene, entity, dt)
         for system in self.post_systems:
             for entity in self.scene.entities:
-                if system.requires.issubset(entity.components_used):
-                    system.update(events, scene, entity, dt)
+                if entity != None and system.required_components.issubset(entity.used_components):
+                    system.update(events, self.scene, entity, dt)

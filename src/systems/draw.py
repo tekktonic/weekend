@@ -1,9 +1,10 @@
 from util.system import System
 from util.component import ComponentType
 
-def DrawSystem(System):
-    def __init__(self, screen, required_components):
-        super().__init__(required_components)
+class Draw(System):
+    def __init__(self, screen):
+        super().__init__({ ComponentType.Position, ComponentType.Sprite})
         self.screen = screen
-    def update(self, scene, entity):
-        screen.blit(scene.components.get(ComponentType.Sprite)[entity.id].spritesheet.get(), scene.components.get(ComponentType.Position)[entity.id].pos)
+    
+    def update(self, events, scene, entity, dt):
+        self.screen.blit(scene.components.get(ComponentType.Sprite)[entity.id].spritesheet.get(dt), scene.components.get(ComponentType.Position)[entity.id].pos)
