@@ -9,7 +9,7 @@ def main():
     # Game modules have a simple interface, one fuction which takes
     # A list of event to process and the time since the last game tick.
     controller = None
-    if len(sys.argv) == 0:
+    if len(sys.argv) == 1:
         print("Pass a game module dummy")
         sys.exit(1)
     else:
