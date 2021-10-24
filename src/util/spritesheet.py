@@ -5,6 +5,14 @@ import pygame
 import util.resources as resources
 
 class SpriteSheet(object):
+    class Animation(object):
+        def __init__(self, start_x, end_x, y, frame_timing):
+            self.start_x = start_x
+            self.end_x = end_x
+            self.y = y
+            self.frame_timing = frame_timing
+            self.frame_clock = frame_timing
+    
     def __init__(self, sheetname, tile_width, tile_height):
         path = resources.image_path(sheetname)
         print(path)
@@ -17,12 +25,33 @@ class SpriteSheet(object):
         self.h = h
         self.tile_width = tile_width
         self.tile_height = tile_height
-        self.names = {}
+        self.animations = {}
+        self.current_animation = None
+        self.frame = 0
     
-    def name(self, n, pos):
-        self.names.set(n, pos)
+    def animation(self, name, start_x, end_x, y, timing):
+        self.animations[name] = self.Animation(start_x, end_x, y, timing)
+        self.frame = start_x
     
-    def get(self, v):
+    def set_animation(self, name):
+        self.current_animation = name
+        
+    def next(self, dt):
+        anim = self.animations[self.current_animation]
+        anim.frame_clock -= dt
+        if anim.frame_clock <= 0:
+            self.frame += 1
+            if self.frame > self.animations[self.current_animation].end_x:
+                self.frame = self.animations[self.current_animation].start_x
+            anim.frame_clock = anim.frame_timing
+    
+    def get(self, dt):
+        self.next(dt)
+        ret = pygame.Surface((self.tile_width, self.tile_height), flags=pygame.SRCALPHA)
+        ret.blit(self.backing_image, (0, 0), self._get((self.frame, self.animations[self.current_animation].y)))
+        return ret
+    
+    def set(self, v):
         if type(v) == type(tuple()):
             return self._get(v)
         elif issubclass(type(v), enum.Enum) or type(v) == type(''):
