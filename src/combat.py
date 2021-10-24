@@ -29,16 +29,14 @@ class Scene(scene.Scene):
             components.position.Position(160, 100),
             components.sprite.Sprite('so', 16, 16, animations=[('idle', 0, 3, 0, 10 * FRAME)], animation='idle'),
             components.stats.Stats(dice.roll(1, 6), dice.roll(1, 6), dice.roll(1,6)),
-            components.health.Health(),
-            components.mana.Mana()]))
+            components.health.Health()]))
 
         self.enemy = entity.Entity(self, set([
             components.enemy.Enemy(),
-            components.position.Position((130, 32)),
+            components.position.Position(130, 32),
             components.sprite.Sprite('ratking', 16, 16, animations=[('laugh', 0, 1, 0, 10 * FRAME)], animation='laugh'),
             components.stats.Stats(dice.roll(1, 3), dice.roll(1, 3), dice.roll(1,3)),
-            components.health.Health(),
-            components.mana.Mana()]))
+            components.health.Health()]))
 
         self.text = pygame.font.Font(resources.font_path("Bitmgothic"), 16).render('But I Want To Be The King', False, (0, 0, 0))
                 
