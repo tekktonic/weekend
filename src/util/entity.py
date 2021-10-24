@@ -18,6 +18,10 @@ ComponentType = Enum('ComponentType', 'Stats', 'Health', 'Mana', 'Equipment', 'S
 class Component(object):
     def __init__(self, active=True):
         self.active = active
+
+    def connect(self, id):
+        pass
+        
     def get_type(self):
         ComponentType[type(self).__name__]
 
@@ -29,6 +33,9 @@ class Entity(object):
         for component in initial_components:
             components.get(component.get_type())[self.id] = component
             self.used_components.add(component.get_type())
+
+        for component in self.used_components:
+            components.get(component)[self.id].connect(self.id)
 
     def add(self, c: Component):
         components[c.type][self.id] = c
