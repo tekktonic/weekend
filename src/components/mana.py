@@ -1,4 +1,4 @@
-from ..util.entity import ComponentType, Component
+from util.entity import Component
 
 class Mana(Component):
     def __init__(self, max):
