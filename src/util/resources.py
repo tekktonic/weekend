@@ -9,5 +9,8 @@ def image_path(filename):
 def sound_path(filename):
     return _create_path("sounds") + filename + ".ogg"
 
+def font_path(filename):
+    return _create_path("fonts") + filename + ".ttf"
+
 def object_path(filename):
     return _create_path("objects") + filename + ".json"
