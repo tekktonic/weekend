@@ -24,6 +24,7 @@ def main():
     running = True
     clock = pygame.time.Clock()
     
+    module = controller.Module(screen)
     while running:
         dt = clock.tick(60)
         screen.fill((0, 255, 255))
@@ -31,7 +32,7 @@ def main():
         maybe_quit = [event for event in events if event.type == pygame.QUIT]
         if len(maybe_quit) != 0:
             break
-        running = controller.step(events, dt)
+        running = module.step(events, dt)
         pygame.display.flip()
     
     pygame.display.quit()
