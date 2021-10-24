@@ -9,7 +9,7 @@ def main():
     # Game modules have a simple interface, one fuction which takes
     # A list of event to process and the time since the last game tick.
     controller = None
-    if len(sys.argv) == 0:
+    if len(sys.argv) == 1:
         print("Pass a game module dummy")
         sys.exit(1)
     else:
@@ -24,14 +24,19 @@ def main():
     running = True
     clock = pygame.time.Clock()
     
+    module = controller.Module(screen)
     while running:
         dt = clock.tick(60)
         screen.fill((0, 255, 255))
-        running = controller.step(pygame.event.get(), dt)
+        events = pygame.event.get()
+        maybe_quit = [event for event in events if event.type == pygame.QUIT]
+        if len(maybe_quit) != 0:
+            break
+        running = module.step(events, dt)
         pygame.display.flip()
     
     pygame.display.quit()
-    
+    pygame.quit()
 if __name__ == '__main__':
     main()
 

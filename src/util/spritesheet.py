@@ -2,14 +2,16 @@ import enum
 
 import pygame
 
-import resources
+import util.resources as resources
 
 class SpriteSheet(object):
     def __init__(self, sheetname, tile_width, tile_height):
-        self.backing_image = pygame.image.load(resources.image_path(sheetname))
+        path = resources.image_path(sheetname)
+        print(path)
+        self.backing_image = pygame.image.load(path)
         (w, h) = self.backing_image.get_size()
         # Make sure the image is evenly divisible by the tile size
-        assert(w % tile_width != 0 and h % tile_height != 0)
+        assert(w % tile_width == 0 and h % tile_height == 0)
 
         self.w = w
         self.h = h
@@ -19,7 +21,7 @@ class SpriteSheet(object):
     
     def name(self, n, pos):
         self.names.set(n, pos)
-        
+    
     def get(self, v):
         if type(v) == type(tuple()):
             return self._get(v)
