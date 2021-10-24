@@ -1,7 +1,7 @@
 from enum import Enum
 
 _max_entities = 255
-_entity_slots = [False for x in range(max_entities)]
+_entity_slots = [False for x in range(_max_entities)]
 
 def _find_next_id(list):
     for i in range(_max_entities):
@@ -16,7 +16,7 @@ components = {}
 ComponentType = Enum('ComponentType', 'Stats', 'Health', 'Mana', 'Equipment', 'Spells')
 
 class Component(object):
-    def __init__(active=True):
+    def __init__(self, active=True):
         self.active = active
     def get_type(self):
         ComponentType[type(self).__name__]
