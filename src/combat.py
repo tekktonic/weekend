@@ -10,7 +10,8 @@ from util.consts import FRAME
 import util.scene as scene
 import util.entity as entity
 
-from systems.draw import Draw
+from systems.sprites import Sprites
+from systems.draw_hp import DrawHP
 
 import components.player
 import components.position
@@ -24,7 +25,7 @@ import components.health
 class Scene(scene.Scene):
 
     def __init__(self, screen, stack):
-        super().__init__(screen, stack, post_systems=[Draw(screen)])
+        super().__init__(screen, stack, post_systems=[Sprites(screen), DrawHP(screen)])
         
         self.passive = pygame.Color(0, 0, 0, )
         self.active = pygame.Color(255, 255, 255)

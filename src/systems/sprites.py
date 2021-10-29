@@ -1,7 +1,7 @@
 from util.system import System
 from util.component import ComponentType
 
-class Draw(System):
+class Sprites(System):
     def __init__(self, screen):
         super().__init__({ ComponentType.Position, ComponentType.Sprite})
         self.screen = screen
